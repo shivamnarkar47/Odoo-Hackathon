@@ -4,6 +4,7 @@ import SkillTag from "../UserProfile/SkillTag";
 import Badge from "../UserProfile/Badge";
 import ProfileHeader from "../UserProfile/ProfileHeader";
 import type { User } from "../../types";
+import { useParams } from "react-router";
 
 interface UserProfileProps {
   user: User | null;
@@ -11,6 +12,8 @@ interface UserProfileProps {
 }
 
 const UserProfile: React.FC<UserProfileProps> = ({ user, onBack }) => {
+  const { id } = useParams();
+
   if (!user) {
     return (
       <div className="max-w-xl mx-auto px-4 py-10 text-center">
