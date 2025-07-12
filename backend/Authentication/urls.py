@@ -25,6 +25,7 @@ urlpatterns = [
     path('swaps/<int:swap_id>/cancel/', views.cancel_swap, name='cancel_swap'),
     path('swaps/<int:swap_id>/delete/', views.delete_swap, name='delete_swap'),
     path('swaps/<int:swap_id>/rate/', views.rate_swap, name='rate_swap'),
+    
 
     path('availability-choices/', views.get_availability_choices, name='availability_choices'),
 

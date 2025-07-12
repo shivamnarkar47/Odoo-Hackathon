@@ -176,31 +176,44 @@ def _update_swap_status(request, swap_id, new_status):
 @permission_classes([IsAuthenticated])
 def rate_swap(request, swap_id):
     rating = request.data.get('rating')
-    feedback = request.data.get('feedback')
+    feedback = request.data.get('feedback', '').strip()
 
-    if not rating:
-        return Response({'error': 'Rating is required.'}, 400)
+    if rating is None:
+        return Response({'error': 'Rating is required.'}, status=400)
+
     try:
         rating = int(rating)
+        if rating < 1 or rating > 5:
+            return Response({'error': 'Rating must be between 1 and 5.'}, status=400)
+
         swap = Swap.objects.get(id=swap_id)
-        if swap.status != 'completed':
-            return Response({'error': 'Swap not completed yet.'}, 400)
+
+        if swap.status not in ['accepted', 'completed']:
+            return Response({'error': 'You can only rate swaps that are accepted or completed.'}, status=400)
 
         if request.user == swap.requester:
+            if swap.requester_rating is not None:
+                return Response({'error': 'You have already submitted a rating.'}, status=400)
             swap.requester_rating = rating
             swap.requester_feedback = feedback
         elif request.user == swap.receiver:
+            if swap.receiver_rating is not None:
+                return Response({'error': 'You have already submitted a rating.'}, status=400)
             swap.receiver_rating = rating
             swap.receiver_feedback = feedback
         else:
-            return Response({'error': 'Not your swap.'}, 403)
+            return Response({'error': 'You are not part of this swap.'}, status=403)
 
         swap.save()
-        return Response({'message': 'Rating submitted.'})
+        return Response({'message': 'Rating submitted successfully.'}, status=200)
+
     except Swap.DoesNotExist:
-        return Response({'error': 'Swap not found.'}, 404)
+        return Response({'error': 'Swap not found.'}, status=404)
+    except ValueError:
+        return Response({'error': 'Rating must be an integer.'}, status=400)
     except Exception as e:
-        return Response({'error': str(e)}, 400)
+        return Response({'error': str(e)}, status=500)
+
 
 @api_view(['GET'])
 @permission_classes([AllowAny])

@@ -138,8 +138,6 @@ def download_report(request):
             # Write Swaps
             if not df_swaps.empty:
                 df_swaps.to_excel(writer, sheet_name='Swaps', index=False)
-                for col in swaps_df.select_dtypes(include=['datetimetz']).columns:
-                    swaps_df[col] = swaps_df[col].dt.tz_localize(None)
 
             # Write Logs
             if not df_logs.empty:
