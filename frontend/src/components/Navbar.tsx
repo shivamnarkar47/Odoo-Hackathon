@@ -1,13 +1,13 @@
 import React, { useState, useRef, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom"; // ✅ Correct hook
 import { Button } from "./ui/button";
 import { ModeToggle } from "./mode-toggle";
 
 const Navbar: React.FC = () => {
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
-    const [showProfileMenu, setShowProfileMenu] = useState(false);
-    const profileRef = useRef<HTMLDivElement>(null);
-    const navigate = useNavigate();
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const [showProfileMenu, setShowProfileMenu] = useState(false);
+  const profileRef = useRef<HTMLDivElement>(null);
+  const navigate = useNavigate();
 
     const handleLoginLogout = () => {
         setIsLoggedIn(!isLoggedIn);
@@ -17,10 +17,10 @@ const Navbar: React.FC = () => {
         }
     };
 
-    const goToProfile = () => {
-        navigate("/profile");
-        setShowProfileMenu(false);
-    };
+  const goToProfile = () => {
+    navigate("/my-profile");
+    setShowProfileMenu(false);
+  };
 
     const goToHome = () => {
         navigate("/");

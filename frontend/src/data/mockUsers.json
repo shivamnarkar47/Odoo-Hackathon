@@ -1,0 +1,156 @@
+[
+  {
+    "id": 1,
+    "name": "Maria Fernanda",
+    "email": "maria@example.com",
+    "location": "California, USA",
+    "skills_offered": ["Photoshop", "Design", "Ableton"],
+    "skills_wanted": ["React", "Node.js", "UI/UX"],
+    "availability": "Weekends",
+    "profile_pic": "/avatar.jpg",
+    "is_public": true,
+    "rating": 4.2,
+    "reviews": [
+      {
+        "id": 1,
+        "reviewer": "John Smith",
+        "rating": 4.5,
+        "comment": "Maria is an excellent designer. She helped me create stunning visuals for my app.",
+        "date": "2023-05-15"
+      },
+      {
+        "id": 2,
+        "reviewer": "Sarah Johnson",
+        "rating": 4.0,
+        "comment": "Great collaboration! Maria has a good eye for detail.",
+        "date": "2023-04-22"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "name": "Alex Chen",
+    "email": "alex@example.com",
+    "location": "New York, USA",
+    "skills_offered": ["React", "TypeScript", "Next.js"],
+    "skills_wanted": ["UI/UX Design", "Motion Graphics"],
+    "availability": "Daily",
+    "profile_pic": "/avatar.jpg",
+    "is_public": true,
+    "rating": 4.7,
+    "reviews": [
+      {
+        "id": 1,
+        "reviewer": "Michael Brown",
+        "rating": 5.0,
+        "comment": "Alex is a React wizard! He solved complex problems in our project with ease.",
+        "date": "2023-06-10"
+      },
+      {
+        "id": 2,
+        "reviewer": "Emily Davis",
+        "rating": 4.3,
+        "comment": "Professional and efficient. Will definitely work with again.",
+        "date": "2023-05-28"
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "name": "Priya Sharma",
+    "email": "priya@example.com",
+    "location": "Bangalore, India",
+    "skills_offered": ["Python", "Data Analysis", "Machine Learning"],
+    "skills_wanted": ["Web Development", "JavaScript"],
+    "availability": "Evenings",
+    "profile_pic": "/avatar.jpg",
+    "is_public": true,
+    "rating": 4.8,
+    "reviews": [
+      {
+        "id": 1,
+        "reviewer": "David Wilson",
+        "rating": 4.8,
+        "comment": "Priya's data analysis skills are top-notch. She delivered insights beyond our expectations.",
+        "date": "2023-07-02"
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "name": "James Wilson",
+    "email": "james@example.com",
+    "location": "London, UK",
+    "skills_offered": ["UI/UX Design", "Figma", "Prototyping"],
+    "skills_wanted": ["Backend Development", "API Design"],
+    "availability": "Daily",
+    "profile_pic": "/avatar.jpg",
+    "is_public": false,
+    "rating": 4.1,
+    "reviews": [
+      {
+        "id": 1,
+        "reviewer": "Lisa Taylor",
+        "rating": 4.2,
+        "comment": "James created a beautiful UI for our application. Very satisfied with the work.",
+        "date": "2023-06-18"
+      },
+      {
+        "id": 2,
+        "reviewer": "Robert Garcia",
+        "rating": 4.0,
+        "comment": "Good designer, communicates well throughout the process.",
+        "date": "2023-05-30"
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "name": "Sophie Martin",
+    "email": "sophie@example.com",
+    "location": "Paris, France",
+    "skills_offered": ["Content Writing", "Copywriting", "SEO"],
+    "skills_wanted": ["Graphic Design", "Illustration"],
+    "availability": "Weekends",
+    "profile_pic": "/avatar.jpg",
+    "is_public": true,
+    "rating": 4.6,
+    "reviews": [
+      {
+        "id": 1,
+        "reviewer": "Thomas Anderson",
+        "rating": 4.7,
+        "comment": "Sophie's writing skills are exceptional. She captured our brand voice perfectly.",
+        "date": "2023-07-05"
+      },
+      {
+        "id": 2,
+        "reviewer": "Jennifer Lee",
+        "rating": 4.5,
+        "comment": "Professional and delivered high-quality content on time.",
+        "date": "2023-06-20"
+      }
+    ]
+  },
+  {
+    "id": 6,
+    "name": "Kenji Tanaka",
+    "email": "kenji@example.com",
+    "location": "Tokyo, Japan",
+    "skills_offered": ["Mobile Development", "Flutter", "Dart"],
+    "skills_wanted": ["Backend Development", "Firebase"],
+    "availability": "Evenings",
+    "profile_pic": "/avatar.jpg",
+    "is_public": true,
+    "rating": 4.9,
+    "reviews": [
+      {
+        "id": 1,
+        "reviewer": "Emma Thompson",
+        "rating": 5.0,
+        "comment": "Kenji developed an amazing mobile app for us. Highly recommended!",
+        "date": "2023-06-25"
+      }
+    ]
+  }
+]

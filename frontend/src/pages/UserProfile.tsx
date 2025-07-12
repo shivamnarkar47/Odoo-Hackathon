@@ -12,7 +12,7 @@ const defaultUserData = {
   is_public: true,
 };
 
-const UserProfile: React.FC = () => {
+const MyProfile: React.FC = () => {
   const [userData, setUserData] = useState(defaultUserData);
   const [formData, setFormData] = useState(defaultUserData);
   const [hasChanges, setHasChanges] = useState(false);
@@ -299,4 +299,4 @@ const UserProfile: React.FC = () => {
   );
 };
 
-export default UserProfile;
+export default MyProfile;

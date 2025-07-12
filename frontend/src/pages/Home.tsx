@@ -1,106 +1,164 @@
-// HomePage.tsx - Skill Swap UI
+// src/pages/HomePage.tsx
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import Avatar from "../components/UserProfile/Avatar";
+import SkillTag from "../components/UserProfile/SkillTag";
+import Badge from "../components/UserProfile/Badge";
+import mockUsers from "../data/mockUsers.json";
+// import type { User } from "../types";
 
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { Card, CardContent } from "@/components/ui/card";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Badge } from "@/components/ui/badge";
-import { Pagination, PaginationContent, PaginationItem, PaginationPrevious, PaginationNext } from "@/components/ui/pagination";
+const HomePage: React.FC = () => {
+  const [availabilityFilter, setAvailabilityFilter] = useState("All");
+  const [searchTerm, setSearchTerm] = useState("");
 
-const users = [
-    {
-        name: "Marc Demo",
-        skillsOffered: ["JavaScript", "Python"],
-        skillsWanted: ["Photoshop", "Graphic Designer"],
-        rating: 3.9,
-    },
-    {
-        name: "Michell",
-        skillsOffered: ["JavaScript", "Python"],
-        skillsWanted: ["Photoshop", "Graphic Designer"],
-        rating: 2.5,
-    },
-    {
-        name: "Joe Wills",
-        skillsOffered: ["JavaScript", "Python"],
-        skillsWanted: ["Photoshop", "Graphic Designer"],
-        rating: 4.0,
-    },
-];
+  const filteredUsers = mockUsers.filter((user) => {
+    const matchesAvailability =
+      availabilityFilter === "All" || user.availability === availabilityFilter;
+      
+    const matchesSearch =
+      user.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      user.skills_offered.some((skill) =>
+        skill.toLowerCase().includes(searchTerm.toLowerCase())
+      ) ||
+      user.skills_wanted.some((skill) =>
+        skill.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+      
+    return matchesAvailability && matchesSearch;
+  });
 
-const Home = () => {
-    return (
-        <main className="min-h-screen dark:bg-black bg-white dark:text-white text-black p-8">
+  return (
+    <div className="max-w-6xl mx-auto px-4 py-8 space-y-6">
+      <div className="flex flex-col sm:flex-row justify-between items-center gap-4 mb-8">
+        <h1 className="text-3xl font-bold text-primary">Skill Exchange Community</h1>
+        
+        <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
+          <div className="flex items-center gap-2">
+            <label className="text-sm font-medium">Availability</label>
+            <select
+              value={availabilityFilter}
+              onChange={(e) => setAvailabilityFilter(e.target.value)}
+              className="border border-input bg-background px-4 py-2 rounded-md text-sm focus:outline-none"
+            >
+              <option value="All">All</option>
+              <option value="Weekends">Weekends</option>
+              <option value="Evenings">Evenings</option>
+              <option value="Daily">Daily</option>
+            </select>
+          </div>
 
+          <div className="flex gap-2 w-full sm:w-96">
+            <input
+              type="text"
+              placeholder="Search by name or skill..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="border border-input bg-background px-4 py-2 rounded-md w-full text-sm"
+            />
+            <button className="bg-primary text-primary-foreground px-4 py-2 rounded-md text-sm">
+              Search
+            </button>
+          </div>
+        </div>
+      </div>
 
-            <div className="flex gap-4 mb-6">
-                <Select>
-                    <SelectTrigger className="w-[200px]">
-                        <SelectValue placeholder="Availability" />
-                    </SelectTrigger>
-                    <SelectContent>
-                        <SelectItem value="available">Available</SelectItem>
-                        <SelectItem value="busy">Busy</SelectItem>
-                    </SelectContent>
-                </Select>
-                <Input placeholder="Search" className="w-full max-w-md" />
-                <Button>Search</Button>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {filteredUsers.map((user) => (
+          <Link 
+            to={`/profile/${user.id}`} 
+            key={user.id}
+            className="border border-muted bg-card shadow-sm rounded-xl p-6 hover:shadow-md transition-shadow duration-300"
+          >
+            <div className="flex items-center gap-4 mb-4">
+              <Avatar 
+                src={user.profile_pic} 
+                alt="Profile" 
+                size="md"
+                status={user.availability === "Unavailable" ? "offline" : "online"}
+              />
+              <div>
+                <h2 className="text-lg font-semibold">{user.name}</h2>
+                <p className="text-sm text-muted-foreground">{user.location}</p>
+              </div>
             </div>
 
-            <div className="space-y-4">
-                {users.map((user, index) => (
-                    <Card key={index} className="dark:bg-zinc-900 dark:text-white">
-                        <CardContent className="flex items-center gap-6 p-6">
-                            <Avatar className="h-16 w-16">
-                                <AvatarFallback>{user.name[0]}</AvatarFallback>
-                            </Avatar>
-                            <div className="flex-1">
-                                <h2 className="text-lg font-semibold">{user.name}</h2>
-                                <div className="mt-2 text-sm">
-                                    <span className="text-green-400 font-medium">Skills Offered:</span>
-                                    {user.skillsOffered.map((skill, i) => (
-                                        <Badge key={i} variant="secondary" className="ml-2 dark:text-black dark:bg-white bg-gray-400">
-                                            {skill}
-                                        </Badge>
-                                    ))}
-                                </div>
-                                <div className="mt-2 text-sm">
-                                    <span className="text-blue-400 font-medium">Skills Wanted:</span>
-                                    {user.skillsWanted.map((skill, i) => (
-                                        <Badge key={i} variant="outline" className="ml-2">
-                                            {skill}
-                                        </Badge>
-                                    ))}
-                                </div>
-                            </div>
-                            <div className="text-center">
-                                <Button variant="default" className="mb-2">Request</Button>
-                                <p className="text-sm">Rating: {user.rating}/5</p>
-                            </div>
-                        </CardContent>
-                    </Card>
-                ))}
+            <div className="mb-4">
+              <div className="text-sm mb-2">
+                <span className="font-medium text-green-600">Offers:</span>
+                <div className="flex flex-wrap gap-1 mt-1">
+                  {user.skills_offered.map((skill) => (
+                    <SkillTag
+                      key={skill}
+                      skill={skill}
+                      variant="offered"
+                      className="text-xs"
+                    />
+                  ))}
+                </div>
+              </div>
+              
+              <div className="text-sm">
+                <span className="font-medium text-blue-600">Seeks:</span>
+                <div className="flex flex-wrap gap-1 mt-1">
+                  {user.skills_wanted.map((skill) => (
+                    <SkillTag
+                      key={skill}
+                      skill={skill}
+                      variant="wanted"
+                      className="text-xs"
+                    />
+                  ))}
+                </div>
+              </div>
             </div>
 
-            <Pagination className="mt-6">
-                <PaginationContent>
-                    <PaginationItem>
-                        <PaginationPrevious href="#" />
-                    </PaginationItem>
-                    {[1, 2, 3, 4, 5, 6, 7].map((page) => (
-                        <PaginationItem key={page}>
-                            <Button variant={page === 1 ? "default" : "ghost"}>{page}</Button>
-                        </PaginationItem>
-                    ))}
-                    <PaginationItem>
-                        <PaginationNext href="#" />
-                    </PaginationItem>
-                </PaginationContent>
-            </Pagination>
-        </main>
-    );
-}
+            <div className="flex items-center justify-between">
+              <span className="text-sm font-medium flex items-center gap-1">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-yellow-500" viewBox="0 0 20 20" fill="currentColor">
+                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                </svg>
+                {user.rating.toFixed(1)}
+              </span>
+              
+              <Badge 
+                text={user.availability}
+                variant={
+                  user.availability === "Unavailable" 
+                    ? "danger" 
+                    : user.availability === "Daily" 
+                      ? "success" 
+                      : "info"
+                }
+              />
+            </div>
+          </Link>
+        ))}
+      </div>
 
+      <div className="flex justify-center pt-8">
+        <div className="flex items-center gap-2 text-sm text-muted-foreground">
+          <button className="px-3 py-1 rounded hover:bg-muted hover:text-primary">
+            &lt; Prev
+          </button>
+          {[1, 2, 3, 4, 5].map((page) => (
+            <button
+              key={page}
+              className={`px-3 py-1 rounded ${
+                page === 1
+                  ? "bg-primary text-primary-foreground"
+                  : "hover:bg-muted hover:text-primary"
+              }`}
+            >
+              {page}
+            </button>
+          ))}
+          <button className="px-3 py-1 rounded hover:bg-muted hover:text-primary">
+            Next &gt;
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+};
 
-export default Home;
+export default HomePage;
