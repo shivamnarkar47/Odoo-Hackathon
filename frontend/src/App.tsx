@@ -7,8 +7,10 @@ import UserProfile from "./components/HomePage/UserProfile";
 import SwapRequest from "./pages/SwapRequest";
 import MyRequest from "./pages/MyRequest";
 import Navbar from "@/components/Navbar";
+import { AuthProvider, useAuth } from './context/AuthContext.tsx'
 
 function App() {
+  const { user } = useAuth();
   return (
     <BrowserRouter>
       {/* <nav className="p-4 bg-gray-100">
@@ -17,17 +19,20 @@ function App() {
         <Link to="/profile" className="mr-4">User Profile</Link>
         <Link to="/swap-request">SwapRequest</Link>
       </nav> */}
+
+
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/signup" element={<SignUp />} />        
+        <Route path="/signup" element={<SignUp />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/profile/:userId" element={<UserProfile />} />
+        <Route path="/profile/:userId" element={<UserProfile user={user} />} />
         <Route path="/my-profile" element={<MyProfile />} />
         <Route path="/swap-request" element={<SwapRequest />} />
         <Route path="/my-request" element={<MyRequest />} />
 
       </Routes>
+
     </BrowserRouter>
   )
 }

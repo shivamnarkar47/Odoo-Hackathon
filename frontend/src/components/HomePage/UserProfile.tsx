@@ -6,7 +6,7 @@ import ProfileHeader from "../UserProfile/ProfileHeader";
 import type { User } from "../../types";
 
 interface UserProfileProps {
-  user: User;
+  user: User | null;
   onBack: () => void;
 }
 
@@ -26,9 +26,7 @@ const UserProfile: React.FC<UserProfileProps> = ({ user, onBack }) => {
     );
   }
 
-  const averageRating =
-    user.reviews.reduce((sum, review) => sum + review.score, 0) /
-    user.reviews.length;
+  const averageRating = user.reviews != null ? user.reviews.reduce((sum, review) => sum + review.score, 0) / user.reviews.length : 2;
 
   return (
     <div className="max-w-6xl mx-auto p-4 md:p-8 bg-background">
@@ -74,7 +72,7 @@ const UserProfile: React.FC<UserProfileProps> = ({ user, onBack }) => {
                   >
                     <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
                   </svg>
-                  {averageRating.toFixed(1)} ({user.reviews.length} reviews)
+                  {averageRating.toFixed(1)} ({user.reviews != null ? user.reviews.length : 0} reviews)
                 </span>
               </div>
 
@@ -127,13 +125,13 @@ const UserProfile: React.FC<UserProfileProps> = ({ user, onBack }) => {
             <div className="p-6 border-b border-muted">
               <h2 className="text-xl font-semibold">Reviews & Feedback</h2>
               <p className="text-muted-foreground text-sm mt-1">
-                {user.reviews.length} reviews with an average rating of{" "}
+                {user.reviews != null ? user.reviews.length : 0} reviews with an average rating of{" "}
                 {averageRating.toFixed(1)}
               </p>
             </div>
 
             <div className="p-6 space-y-6">
-              {user.reviews.map((review) => (
+              {user.reviews != null && user.reviews.map((review) => (
                 <div
                   key={review.id}
                   className="border-b border-muted pb-6 last:border-0 last:pb-0"

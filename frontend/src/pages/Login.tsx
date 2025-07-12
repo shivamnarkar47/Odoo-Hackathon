@@ -5,12 +5,13 @@ import { Card, CardContent } from "@/components/ui/card";
 import { toast } from "sonner";
 import { backendRequest } from "@/services/backendRequest"; // adjust path as needed
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "@/context/AuthContext";
 
 export function Login() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const navigate = useNavigate();
-
+    const { login } = useAuth();
     const handleLogin = async () => {
         if (!email || !password) {
             toast.error("Please fill in both fields.");
@@ -26,6 +27,7 @@ export function Login() {
 
             // Assuming successful login returns user or token
             toast.success("Login successful!");
+            login(response.user);
             console.log(response);
             navigate("/"); // or wherever you'd like to redirect
         } catch (error) {

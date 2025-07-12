@@ -4,12 +4,15 @@ import './index.css'
 import App from './App.tsx'
 import { ThemeProvider } from "@/components/theme-provider"
 import { Toaster } from "@/components/ui/sonner"
+import { AuthProvider } from './context/AuthContext.tsx'
 
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-      <App />
+      <AuthProvider>
+        <App />
+      </AuthProvider>
       <Toaster />
 
     </ThemeProvider>

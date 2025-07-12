@@ -6,11 +6,15 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Checkbox } from "@/components/ui/checkbox";
 import { toast } from "sonner"
 import { backendRequest } from "@/services/backendRequest";
+import { useAuth } from "@/context/AuthContext";
+import { useNavigate } from "react-router";
 export function SignUp() {
     const [formData, setFormData] = useState({ name: "", email: "", password: "", location: "", availability: "", ispublic: true, agreed: false });
+    // const { login } = useAuth();
+
     const onSignUp = async () => {
         const { name, email, password, location, availability } = formData;
-
+        const navigate = useNavigate();
         if (!name || !email || !password || !location || !availability) {
             toast.error("Please fill in all the required fields.");
             return;
@@ -26,6 +30,10 @@ export function SignUp() {
             console.log("Signup successful:", response);
             // You can add toast.success or redirect here
             toast.success("Successful Signup");
+            // login(response.user);
+            navigate("/");
+
+
 
         } catch (error) {
             console.error("Signup error:", error);
