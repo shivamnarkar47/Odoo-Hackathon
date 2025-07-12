@@ -53,11 +53,10 @@ const SwapRequest: React.FC = () => {
             {[1, 2, 3].map((page) => (
               <button
                 key={page}
-                className={`px-3 py-1 rounded ${
-                  page === 1
-                    ? "bg-primary text-primary-foreground"
-                    : "hover:bg-muted hover:text-primary"
-                }`}
+                className={`px-3 py-1 rounded ${page === 1
+                  ? "bg-primary text-primary-foreground"
+                  : "hover:bg-muted hover:text-primary"
+                  }`}
               >
                 {page}
               </button>

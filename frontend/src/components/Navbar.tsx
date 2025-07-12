@@ -34,7 +34,7 @@ const Navbar: React.FC = () => {
     };
 
     const goToHome = () => navigate("/");
-    const goToSwapRequest = () => navigate("/swap-requests");
+    const goToSwapRequest = () => navigate("/swap-request");
     const goToProfile = () => {
         navigate("/my-profile");
         setShowProfileMenu(false);
@@ -104,6 +104,13 @@ const Navbar: React.FC = () => {
                             title="See Swap Requests"
                         >
                             Swap Request
+                        </button>
+                        <button
+                            onClick={goToMyRequests}
+                            className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 px-3 py-1 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+                            title="View My Requests"
+                        >
+                            My Requests
                         </button>
                     </>
                 )}
