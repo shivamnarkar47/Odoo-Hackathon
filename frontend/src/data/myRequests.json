@@ -1,0 +1,20 @@
+[
+  {
+    "id": 101,
+    "name": "Alex Jones",
+    "profile_pic": "/avatar.jpg",
+    "skills_offered": ["UI Design", "Figma"],
+    "skills_wanted": ["React", "JavaScript"],
+    "rating": 4.6,
+    "status": "Pending"
+  },
+  {
+    "id": 102,
+    "name": "Nina Patel",
+    "profile_pic": "/avatar2.jpg",
+    "skills_offered": ["Python", "Data Analysis"],
+    "skills_wanted": ["Flutter"],
+    "rating": 4.3,
+    "status": "Rejected"
+  }
+]

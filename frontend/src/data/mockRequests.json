@@ -1,0 +1,20 @@
+[
+  {
+    "id": 1,
+    "name": "Marc Demo",
+    "profile_pic": "/avatar.jpg",
+    "skills_offered": ["JavaScript", "Photoshop"],
+    "skills_wanted": ["Production"],
+    "rating": 3.9,
+    "status": "Pending"
+  },
+  {
+    "id": 2,
+    "name": "Joe Wills",
+    "profile_pic": "/avatar.jpg",
+    "skills_offered": ["Figma", "CSS"],
+    "skills_wanted": ["React"],
+    "rating": 4.1,
+    "status": "Rejected"
+  }
+]

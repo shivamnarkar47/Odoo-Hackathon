@@ -5,6 +5,7 @@ import { SignUp } from "./pages/SignUp";
 import MyProfile from "./pages/UserProfile";
 import UserProfile from "./components/HomePage/UserProfile";
 import SwapRequest from "./pages/SwapRequest";
+import MyRequest from "./pages/MyRequest";
 import Navbar from "@/components/Navbar";
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
         <Route path="/profile/:userId" element={<UserProfile />} />
         <Route path="/my-profile" element={<MyProfile />} />
         <Route path="/swap-request" element={<SwapRequest />} />
+        <Route path="/my-request" element={<MyRequest />} />
 
       </Routes>
     </BrowserRouter>
