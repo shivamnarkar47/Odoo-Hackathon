@@ -4,4 +4,5 @@ from Authentication.urls import *
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('Authentication.urls')),
+    path('', include('Authentication.admin_urls')),
 ]
