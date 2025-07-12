@@ -150,7 +150,7 @@ def cancel_swap(request, swap_id):
     return _update_swap_status(request, swap_id, 'cancelled')
 
 
-@api_view(['DELETE'])
+@api_view(['POST'])
 @permission_classes([IsAuthenticated])
 def delete_swap(request, swap_id):
     try:
