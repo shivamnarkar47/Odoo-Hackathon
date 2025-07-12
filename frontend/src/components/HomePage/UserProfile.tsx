@@ -1,18 +1,36 @@
-import React from "react";
+//@ts-nocheck
+import React, { useEffect, useState } from "react";
 import { Button } from "../ui/button";
 import SkillTag from "../UserProfile/SkillTag";
 import Badge from "../UserProfile/Badge";
 import ProfileHeader from "../UserProfile/ProfileHeader";
 import type { User } from "../../types";
 import { useParams } from "react-router";
+import { backendRequest } from "@/services/backendRequest";
 
 interface UserProfileProps {
-  user: User | null;
   onBack: () => void;
 }
 
-const UserProfile: React.FC<UserProfileProps> = ({ user, onBack }) => {
-  const { id } = useParams();
+const UserProfile: React.FC<any> = ({ onBack }) => {
+  const { userId } = useParams();
+  const [user, setUser] = useState(null);
+  const getProfile = () => {
+    backendRequest({
+      url: `http://127.0.0.1:8000/users/${userId}/`, // Replace 123 with actual user ID
+      method: "GET",
+    })
+      .then((res) => {
+        console.log("User data:", res);
+        setUser(res);
+      })
+      .catch((err) => {
+        console.error("Error fetching user:", err);
+      });
+  }
+  useEffect(() => {
+    getProfile();
+  }, [])
 
   if (!user) {
     return (
@@ -28,6 +46,7 @@ const UserProfile: React.FC<UserProfileProps> = ({ user, onBack }) => {
       </div>
     );
   }
+
 
   const averageRating = user.reviews != null ? user.reviews.reduce((sum, review) => sum + review.score, 0) / user.reviews.length : 2;
 

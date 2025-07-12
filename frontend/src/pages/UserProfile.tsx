@@ -2,10 +2,23 @@ import React, { useState, useEffect } from "react";
 import { useAuth } from "@/context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { Button } from "../components/ui/button";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { Command, CommandGroup, CommandItem } from "@/components/ui/command";
+import { Check } from "lucide-react";
+import { cn } from "@/lib/utils"; // if using Tailwind merge helper
+import { SkillSelector } from "@/components/SkillsSelector";
+import { backendRequest } from "@/services/backendRequest";
+import { toast } from "sonner";
 
 const MyProfile: React.FC = () => {
-  const { user, login, isAuthenticated } = useAuth();
+  const { user, login, isAuthenticated, accessToken } = useAuth();
   const navigate = useNavigate();
+
+  const [selected, setSelected] = useState([]);
 
   const [formData, setFormData] = useState(user);
   const [hasChanges, setHasChanges] = useState(false);
@@ -28,7 +41,24 @@ const MyProfile: React.FC = () => {
   };
 
   const handleSave = () => {
-    login(formData); // Updates context and localStorage
+    console.log(formData);
+    backendRequest({
+      url: "http://localhost:8000/profile/update/",
+      method: "POST",
+      data: formData,
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    })
+      .then(() => {
+        toast.success("Updated the Profile 🙂");
+        login(formData); // Update context/localStorage
+
+      })
+      .catch((e) => {
+        console.error("Profile Error:", e);
+      });
+
   };
 
   const handleDiscard = () => {
@@ -117,9 +147,26 @@ const MyProfile: React.FC = () => {
                         className="w-full bg-background border border-input rounded-lg px-4 py-2 focus:ring-2 focus:ring-primary/50"
                       />
                     </div>
-                  </div>
-                </section>
 
+                    <SkillSelector
+                      title="Offered"
+                      selected={formData.skills_offered}
+                      setSelected={(val) => handleChange("skills_offered", val)}
+                      skills_offered={formData.skills_offered ?? []}
+                      skills_wanted={formData.skills_wanted ?? []}
+                    />
+
+                    <SkillSelector
+                      title="Wanted"
+                      selected={formData.skills_wanted}
+                      setSelected={(val) => handleChange("skills_wanted", val)}
+                      skills_offered={formData.skills_offered ?? []}
+                      skills_wanted={formData.skills_wanted ?? []}
+                    />
+
+                  </div>
+
+                </section>
                 {/* Skills Section (same logic retained for add/remove) */}
                 {/* Preferences */}
                 <section>

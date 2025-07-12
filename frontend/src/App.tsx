@@ -7,10 +7,9 @@ import UserProfile from "./components/HomePage/UserProfile";
 import SwapRequest from "./pages/SwapRequest";
 import MyRequest from "./pages/MyRequest";
 import Navbar from "@/components/Navbar";
-import { AuthProvider, useAuth } from './context/AuthContext'
+import { useAuth } from './context/AuthContext'
 
 function App() {
-  const { user } = useAuth();
   return (
     <BrowserRouter>
       {/* <nav className="p-4 bg-gray-100">

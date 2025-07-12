@@ -9,6 +9,7 @@ interface User {
 
 interface AuthContextType {
     user: User | null;
+    accessToken: String | null,
     login: (userData: User) => void;
     logout: () => void;
     isAuthenticated: boolean;
@@ -18,6 +19,7 @@ const AuthContext = createContext<AuthContextType | null>(null);
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     const [user, setUser] = useState<User | null>(null);
+    const [accessToken, setAccessToken] = useState<String | null>(null);
 
     useEffect(() => {
         const savedUser = localStorage.getItem("user");
@@ -27,12 +29,21 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     }, []);
 
     const login = (userData: User) => {
-        setUser(userData);
-        localStorage.setItem("user", JSON.stringify(userData));
+        if (userData.user) {
+
+            setAccessToken(userData.access);
+            setUser(userData.user);
+            localStorage.setItem("user", JSON.stringify(userData.user));
+        }
+        else {
+            setUser(userData);
+            localStorage.setItem("user", JSON.stringify(userData));
+        }
     };
 
     const logout = () => {
         setUser(null);
+        setAccessToken(null);
         localStorage.removeItem("user");
     };
 
@@ -40,6 +51,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         <AuthContext.Provider
             value={{
                 user,
+                accessToken,
                 login,
                 logout,
                 isAuthenticated: !!user,
