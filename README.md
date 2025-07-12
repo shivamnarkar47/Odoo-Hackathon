@@ -12,3 +12,9 @@ Team Members :
 - Vipul More (vvm3875@gmail.com)
 - Shivam Narkar (shivamnarkar16@gmail.com)
 
+
+Team Members : 
+
+- Dhruv Bhatada (bhatadadhruv@gmail.com)
+- Vipul More (vvm3875@gmail.com)
+- Shivam Narkar (shivamnarkar16@gmail.com)
