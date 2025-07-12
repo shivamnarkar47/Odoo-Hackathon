@@ -27,7 +27,7 @@ export function Login() {
 
             // Assuming successful login returns user or token
             toast.success("Login successful!");
-            login(response.user);
+            login(response);
             console.log(response);
             navigate("/"); // or wherever you'd like to redirect
         } catch (error) {
