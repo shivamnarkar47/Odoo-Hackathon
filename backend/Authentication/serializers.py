@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from django.contrib.auth import get_user_model, authenticate
-from .models import Skills, Swap
+from .models import Skills, Swap, UserActivityLog, BannedUser, PlatformMessage
 
 User = get_user_model()
 
@@ -96,3 +96,36 @@ class SwapCreateSerializer(serializers.ModelSerializer):
         validated_data['requester'] = self.context['request'].user
         return Swap.objects.create(**validated_data)
 
+class PlatformMessageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = PlatformMessage
+        fields = '__all__'
+
+class BannedUserSerializer(serializers.ModelSerializer):
+    user_email = serializers.CharField(source='user.email', read_only=True)
+    class Meta:
+        model = BannedUser
+        fields = ['id', 'user', 'user_email', 'reason', 'banned_at']
+
+class UserActivityLogSerializer(serializers.ModelSerializer):
+    user_email = serializers.CharField(source='user.email', read_only=True)
+    class Meta:
+        model = UserActivityLog
+        fields = ['id', 'user', 'user_email', 'action', 'timestamp', 'details']
+
+class PlatformMessageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = PlatformMessage
+        fields = '__all__'
+
+class BannedUserSerializer(serializers.ModelSerializer):
+    user_email = serializers.CharField(source='user.email', read_only=True)
+    class Meta:
+        model = BannedUser
+        fields = ['id', 'user', 'user_email', 'reason', 'banned_at']
+
+class UserActivityLogSerializer(serializers.ModelSerializer):
+    user_email = serializers.CharField(source='user.email', read_only=True)
+    class Meta:
+        model = UserActivityLog
+        fields = ['id', 'user', 'user_email', 'action', 'timestamp', 'details']
