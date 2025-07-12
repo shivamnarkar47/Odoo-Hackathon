@@ -8,6 +8,7 @@ import SwapRequest from "./pages/SwapRequest";
 import MyRequest from "./pages/MyRequest";
 import Navbar from "@/components/Navbar";
 import { AuthProvider, useAuth } from './context/AuthContext'
+import AdminDashboard from "./pages/AdminDashboard";
 
 function App() {
   const { user } = useAuth();
@@ -30,7 +31,8 @@ function App() {
         <Route path="/my-profile" element={<MyProfile />} />
         <Route path="/swap-request" element={<SwapRequest />} />
         <Route path="/my-request" element={<MyRequest />} />
-
+        <Route path="/admin" element={<AdminDashboard />} />
+        
       </Routes>
 
     </BrowserRouter>

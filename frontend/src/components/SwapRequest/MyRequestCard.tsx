@@ -35,7 +35,7 @@ const MyRequestCard: React.FC<Props> = ({ request }) => {
   return (
     <div
       onClick={() => navigate(`/profile/${request.id}`)}
-      className="border border-muted bg-card rounded-xl p-5 hover:shadow-md cursor-pointer"
+      className="group cursor-pointer border border-gray-200 bg-white rounded-xl shadow-sm transition-all hover:shadow-md p-5 hover:border-primary-300"
     >
       <div className="flex flex-col sm:flex-row gap-5">
         <img
