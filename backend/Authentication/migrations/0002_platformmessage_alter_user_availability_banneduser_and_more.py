@@ -8,71 +8,166 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('Authentication', '0001_initial'),
+        ("Authentication", "0001_initial"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='PlatformMessage',
+            name="PlatformMessage",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('title', models.CharField(max_length=255)),
-                ('content', models.TextField()),
-                ('created_at', models.DateTimeField(auto_now_add=True)),
-                ('visible', models.BooleanField(default=True)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("title", models.CharField(max_length=255)),
+                ("content", models.TextField()),
+                ("created_at", models.DateTimeField(auto_now_add=True)),
+                ("visible", models.BooleanField(default=True)),
             ],
             options={
-                'db_table': 'PlatformMessage',
+                "db_table": "PlatformMessage",
             },
         ),
         migrations.AlterField(
-            model_name='user',
-            name='availability',
-            field=models.CharField(blank=True, choices=[('daily', 'Daily'), ('weekends', 'Weekends'), ('weekdays', 'Weekdays')], help_text='e.g., daily, weekends, evenings', max_length=20, null=True),
+            model_name="user",
+            name="availability",
+            field=models.CharField(
+                blank=True,
+                choices=[
+                    ("daily", "Daily"),
+                    ("weekends", "Weekends"),
+                    ("weekdays", "Weekdays"),
+                ],
+                help_text="e.g., daily, weekends, evenings",
+                max_length=20,
+                null=True,
+            ),
         ),
         migrations.CreateModel(
-            name='BannedUser',
+            name="BannedUser",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('reason', models.TextField()),
-                ('banned_at', models.DateTimeField(auto_now_add=True)),
-                ('user', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("reason", models.TextField()),
+                ("banned_at", models.DateTimeField(auto_now_add=True)),
+                (
+                    "user",
+                    models.OneToOneField(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
             ],
             options={
-                'db_table': 'BannedUser',
+                "db_table": "BannedUser",
             },
         ),
         migrations.CreateModel(
-            name='Swap',
+            name="Swap",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('status', models.CharField(choices=[('pending', 'Pending'), ('accepted', 'Accepted'), ('rejected', 'Rejected'), ('cancelled', 'Cancelled'), ('completed', 'Completed')], default='pending', max_length=20)),
-                ('requester_rating', models.IntegerField(blank=True, null=True)),
-                ('requester_feedback', models.TextField(blank=True, null=True)),
-                ('receiver_rating', models.IntegerField(blank=True, null=True)),
-                ('receiver_feedback', models.TextField(blank=True, null=True)),
-                ('created_at', models.DateTimeField(auto_now_add=True)),
-                ('updated_at', models.DateTimeField(auto_now=True)),
-                ('receiver', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='swaps_received', to=settings.AUTH_USER_MODEL)),
-                ('requester', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='swaps_requested', to=settings.AUTH_USER_MODEL)),
-                ('skill_offered', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='swaps_offered', to='Authentication.skills')),
-                ('skill_wanted', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='swaps_wanted', to='Authentication.skills')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "status",
+                    models.CharField(
+                        choices=[
+                            ("pending", "Pending"),
+                            ("accepted", "Accepted"),
+                            ("rejected", "Rejected"),
+                            ("cancelled", "Cancelled"),
+                            ("completed", "Completed"),
+                        ],
+                        default="pending",
+                        max_length=20,
+                    ),
+                ),
+                ("requester_rating", models.IntegerField(blank=True, null=True)),
+                ("requester_feedback", models.TextField(blank=True, null=True)),
+                ("receiver_rating", models.IntegerField(blank=True, null=True)),
+                ("receiver_feedback", models.TextField(blank=True, null=True)),
+                ("created_at", models.DateTimeField(auto_now_add=True)),
+                ("updated_at", models.DateTimeField(auto_now=True)),
+                (
+                    "receiver",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="swaps_received",
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
+                (
+                    "requester",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="swaps_requested",
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
+                (
+                    "skill_offered",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="swaps_offered",
+                        to="Authentication.skills",
+                    ),
+                ),
+                (
+                    "skill_wanted",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="swaps_wanted",
+                        to="Authentication.skills",
+                    ),
+                ),
             ],
             options={
-                'db_table': 'Swap',
+                "db_table": "Swap",
             },
         ),
         migrations.CreateModel(
-            name='UserActivityLog',
+            name="UserActivityLog",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('action', models.CharField(max_length=255)),
-                ('timestamp', models.DateTimeField(auto_now_add=True)),
-                ('details', models.TextField(blank=True, null=True)),
-                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("action", models.CharField(max_length=255)),
+                ("timestamp", models.DateTimeField(auto_now_add=True)),
+                ("details", models.TextField(blank=True, null=True)),
+                (
+                    "user",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
             ],
             options={
-                'db_table': 'UserActivityLog',
+                "db_table": "UserActivityLog",
             },
         ),
     ]

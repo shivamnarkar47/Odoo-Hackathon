@@ -4,7 +4,6 @@ from .models import Skills, Swap, UserActivityLog, BannedUser, PlatformMessage
 
 User = get_user_model()
 
-# --- User serializers ---
 
 class UserSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True)
@@ -12,10 +11,18 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ['email', 'password', 'name', 'location', 'availability', 'is_public', 'profile_pic']
+        fields = [
+            "email",
+            "password",
+            "name",
+            "location",
+            "availability",
+            "is_public",
+            "profile_pic",
+        ]
 
     def create(self, validated_data):
-        password = validated_data.pop('password')
+        password = validated_data.pop("password")
         user = User(**validated_data)
         user.set_password(password)
         user.save()
@@ -28,9 +35,9 @@ class LoginSerializer(serializers.Serializer):
 
     def validate(self, data):
         user = authenticate(
-            request=self.context.get('request'),
-            email=data.get('email'),
-            password=data.get('password')
+            request=self.context.get("request"),
+            email=data.get("email"),
+            password=data.get("password"),
         )
         if not user:
             raise serializers.ValidationError("Invalid email or password")
@@ -38,10 +45,12 @@ class LoginSerializer(serializers.Serializer):
             raise serializers.ValidationError("User is inactive")
         return user
 
+
 class SkillsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Skills
-        fields = ['id', 'name']
+        fields = ["id", "name"]
+
 
 class UserProfileSerializer(serializers.ModelSerializer):
     skills_offered = SkillsSerializer(many=True, read_only=True)
@@ -51,8 +60,15 @@ class UserProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = [
-            'id', 'email', 'name', 'location', 'availability',
-            'is_public', 'skills_offered', 'skills_wanted', 'profile_pic'
+            "id",
+            "email",
+            "name",
+            "location",
+            "availability",
+            "is_public",
+            "skills_offered",
+            "skills_wanted",
+            "profile_pic",
         ]
 
     def get_profile_pic(self, obj):
@@ -63,14 +79,21 @@ class UpdateProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = [
-            'name', 'location', 'availability', 'is_public',
-            'skills_offered', 'skills_wanted', 'profile_pic'
+            "name",
+            "location",
+            "availability",
+            "is_public",
+            "skills_offered",
+            "skills_wanted",
+            "profile_pic",
         ]
+
 
 class SwapUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['id', 'email', 'name']
+        fields = ["id", "email", "name"]
+
 
 class SwapSerializer(serializers.ModelSerializer):
     requester = SwapUserSerializer(read_only=True)
@@ -81,51 +104,70 @@ class SwapSerializer(serializers.ModelSerializer):
     class Meta:
         model = Swap
         fields = [
-            'id', 'requester', 'receiver', 'skill_offered', 'skill_wanted',
-            'status', 'created_at', 'updated_at',
-            'requester_rating', 'requester_feedback',
-            'receiver_rating', 'receiver_feedback'
+            "id",
+            "requester",
+            "receiver",
+            "skill_offered",
+            "skill_wanted",
+            "status",
+            "created_at",
+            "updated_at",
+            "requester_rating",
+            "requester_feedback",
+            "receiver_rating",
+            "receiver_feedback",
         ]
+
 
 class SwapCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Swap
-        fields = ['receiver', 'skill_offered', 'skill_wanted']
+        fields = ["receiver", "skill_offered", "skill_wanted"]
 
     def create(self, validated_data):
-        validated_data['requester'] = self.context['request'].user
+        validated_data["requester"] = self.context["request"].user
         return Swap.objects.create(**validated_data)
 
-class PlatformMessageSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = PlatformMessage
-        fields = '__all__'
-
-class BannedUserSerializer(serializers.ModelSerializer):
-    user_email = serializers.CharField(source='user.email', read_only=True)
-    class Meta:
-        model = BannedUser
-        fields = ['id', 'user', 'user_email', 'reason', 'banned_at']
-
-class UserActivityLogSerializer(serializers.ModelSerializer):
-    user_email = serializers.CharField(source='user.email', read_only=True)
-    class Meta:
-        model = UserActivityLog
-        fields = ['id', 'user', 'user_email', 'action', 'timestamp', 'details']
 
 class PlatformMessageSerializer(serializers.ModelSerializer):
     class Meta:
         model = PlatformMessage
-        fields = '__all__'
+        fields = "__all__"
+
 
 class BannedUserSerializer(serializers.ModelSerializer):
-    user_email = serializers.CharField(source='user.email', read_only=True)
+    user_email = serializers.CharField(source="user.email", read_only=True)
+
     class Meta:
         model = BannedUser
-        fields = ['id', 'user', 'user_email', 'reason', 'banned_at']
+        fields = ["id", "user", "user_email", "reason", "banned_at"]
+
 
 class UserActivityLogSerializer(serializers.ModelSerializer):
-    user_email = serializers.CharField(source='user.email', read_only=True)
+    user_email = serializers.CharField(source="user.email", read_only=True)
+
     class Meta:
         model = UserActivityLog
-        fields = ['id', 'user', 'user_email', 'action', 'timestamp', 'details']
+        fields = ["id", "user", "user_email", "action", "timestamp", "details"]
+
+
+class PlatformMessageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = PlatformMessage
+        fields = "__all__"
+
+
+class BannedUserSerializer(serializers.ModelSerializer):
+    user_email = serializers.CharField(source="user.email", read_only=True)
+
+    class Meta:
+        model = BannedUser
+        fields = ["id", "user", "user_email", "reason", "banned_at"]
+
+
+class UserActivityLogSerializer(serializers.ModelSerializer):
+    user_email = serializers.CharField(source="user.email", read_only=True)
+
+    class Meta:
+        model = UserActivityLog
+        fields = ["id", "user", "user_email", "action", "timestamp", "details"]
