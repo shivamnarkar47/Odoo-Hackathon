@@ -40,8 +40,6 @@ const Navbar: React.FC = () => {
         setShowProfileMenu(false);
     };
 
-
-
     const goToMyRequests = () => {
         navigate("/my-request");
         setShowProfileMenu(false);
@@ -111,7 +109,7 @@ const Navbar: React.FC = () => {
                             title="View My Requests"
                         >
                             My Requests
-                        </button>
+                            </button>
                     </>
                 )}
                 {user && (

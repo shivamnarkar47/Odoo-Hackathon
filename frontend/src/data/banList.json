@@ -1,0 +1,23 @@
+[
+  {
+    "id": 1,
+    "user": 3,
+    "user_email": "shivam@gmail.com",
+    "reason": "User repeatedly posted spam content.",
+    "banned_at": "2025-07-12T09:39:20.462Z"
+  },
+  {
+    "id": 2,
+    "user": 5,
+    "user_email": "rajdeep@example.com",
+    "reason": "Violation of community guidelines multiple times.",
+    "banned_at": "2025-07-10T14:22:10.154Z"
+  },
+  {
+    "id": 3,
+    "user": 8,
+    "user_email": "fakeuser@example.com",
+    "reason": "Fake profile used for misleading trades.",
+    "banned_at": "2025-07-05T08:50:45.938Z"
+  }
+]

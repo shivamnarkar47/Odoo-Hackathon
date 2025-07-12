@@ -25,3 +25,32 @@ export type User = {
     id?: string | number;
   }[];
 };
+
+interface Swap {
+  id: number;
+  requester: {
+    id: number;
+    name: string;
+    email: string;
+  };
+  receiver: {
+    id: number;
+    name: string;
+    email: string;
+  };
+  skill_offered: {
+    id: number;
+    name: string;
+  };
+  skill_wanted: {
+    id: number;
+    name: string;
+  };
+  status: "pending" | "accepted" | "rejected";
+  created_at: string;
+  updated_at: string;
+  requester_rating: number | null;
+  requester_feedback: string;
+  receiver_rating: number | null;
+  receiver_feedback: string;
+}

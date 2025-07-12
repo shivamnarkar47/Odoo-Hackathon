@@ -1,0 +1,30 @@
+[
+  {
+    "id": 4,
+    "requester": {
+      "id": 3,
+      "email": "shivam@gmail.com",
+      "name": "Shivam Narkar"
+    },
+    "receiver": {
+      "id": 2,
+      "email": "vipul@gmail.com",
+      "name": "Vipul More"
+    },
+    "skill_offered": {
+      "id": 1,
+      "name": "Photoshop"
+    },
+    "skill_wanted": {
+      "id": 2,
+      "name": "Excel"
+    },
+    "status": "accepted",
+    "created_at": "2025-07-12T07:15:23.325258Z",
+    "updated_at": "2025-07-12T07:16:45.632846Z",
+    "requester_rating": null,
+    "requester_feedback": "",
+    "receiver_rating": null,
+    "receiver_feedback": ""
+  }
+]

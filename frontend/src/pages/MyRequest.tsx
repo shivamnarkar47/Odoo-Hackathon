@@ -26,7 +26,6 @@ const MyRequest: React.FC = () => {
       />
       <div className="space-y-4">
         {filtered.map((request) => {
-          // Ensure status is one of the allowed values
           const allowedStatuses = ["Pending", "Accepted", "Rejected"] as const;
           const status =
             allowedStatuses.includes(request.status as any)
